@@ -1,3 +1,4 @@
+// src/pages/Login.jsx
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -8,31 +9,25 @@ export default function Login({ setIsAuthenticated }) {
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
+  const validCredentials = {
+    username: 'admin',
+    password: 'password123'
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsLoading(true)
     setError('')
 
     try {
-      const response = await fetch('https://fakestoreapi.com/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: username,
-          password: password,
-        }),
-      })
-
-      if (!response.ok) {
+     
+      if (username === validCredentials.username && password === validCredentials.password) {
+        localStorage.setItem('token', 'mock_jwt_token')
+        setIsAuthenticated(true)
+        navigate('/')
+      } else {
         throw new Error('Invalid credentials')
       }
-
-      const data = await response.json()
-      localStorage.setItem('token', data.token)
-      setIsAuthenticated(true)
-      navigate('/')
     } catch (err) {
       setError(err.message)
     } finally {
@@ -53,7 +48,7 @@ export default function Login({ setIsAuthenticated }) {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
-            placeholder="Enter username (e.g., test)"
+            placeholder="Enter username"
           />
         </div>
         <div className="form-group">
@@ -64,7 +59,7 @@ export default function Login({ setIsAuthenticated }) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            placeholder="Enter password (e.g., 1234)"
+            placeholder="Enter password"
           />
         </div>
         <button type="submit" disabled={isLoading}>
@@ -73,8 +68,8 @@ export default function Login({ setIsAuthenticated }) {
       </form>
       <div className="demo-credentials">
         <p>Demo credentials:</p>
-        <p>Username: test</p>
-        <p>Password: 1234</p>
+        <p>Username: {validCredentials.username}</p>
+        <p>Password: {validCredentials.password}</p>
       </div>
     </div>
   )
