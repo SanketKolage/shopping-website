@@ -53,7 +53,7 @@ export default function Login({ setIsAuthenticated }) {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
-            placeholder="Enter username (e.g., mor_2314)"
+            placeholder="Enter username (e.g., test)"
           />
         </div>
         <div className="form-group">
@@ -64,7 +64,7 @@ export default function Login({ setIsAuthenticated }) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            placeholder="Enter password (e.g., 83r5^_)"
+            placeholder="Enter password (e.g., 1234)"
           />
         </div>
         <button type="submit" disabled={isLoading}>
@@ -73,8 +73,8 @@ export default function Login({ setIsAuthenticated }) {
       </form>
       <div className="demo-credentials">
         <p>Demo credentials:</p>
-        <p>Username: mor_2314</p>
-        <p>Password: 83r5^_</p>
+        <p>Username: test</p>
+        <p>Password: 1234</p>
       </div>
     </div>
   )
